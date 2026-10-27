@@ -1,83 +1,101 @@
-# Installation Guide
+# Installation
 
 ## Download
 
-### Option 1: GitHub Release
-1. Go to the [Releases page](https://github.com/yourusername/ConsoleExperienceClassic/releases)
-2. Download the latest `.zip` file
-3. Extract the contents
+Download the latest `WindrunnerController-vX.Y.Z.zip` from the [Releases page](https://github.com/WindrunnerWoW/WindrunnerController/releases).
 
-### Option 2: Clone Repository
-```bash
-git clone https://github.com/yourusername/ConsoleExperienceClassic.git
+## Install
+
+The ZIP is laid out exactly like your WoW folder:
+
+```text
+Interface/
+└── AddOns/
+    └── Windrunner-Controller/
+        ├── Windrunner-Controller.toc
+        ├── main.lua
+        └── ...
+WindrunnerController.dll
 ```
 
-## Installation Steps
+1. Close World of Warcraft.
+2. Extract the ZIP.
+3. Copy the `Interface` folder into your WoW folder — the folder containing `WoW.exe`.
+4. Copy `WindrunnerController.dll` into the same folder as `WoW.exe`.
+5. Open `dlls.txt` in the WoW folder with a text editor.
+6. Add this line at the end:
 
-### For TurtleWoW / Vanilla WoW 1.12
-
-1. **Locate your WoW AddOns folder:**
+   ```text
+   WindrunnerController.dll
    ```
-   <WoW Directory>/Interface/AddOns/
+
+   Do not remove or replace existing lines. If `dlls.txt` does not exist, create it with that line.
+7. Install [VanillaFixes](https://github.com/hannesmann/vanillafixes) if you do not have it. The DLL only loads through VanillaFixes.
+8. Launch the game through VanillaFixes:
+
+   ```text
+   VanillaFixes.exe WoW.exe
    ```
-   
-   Examples:
-   - Windows: `C:\Games\TurtleWoW\Interface\AddOns\`
-   - macOS: `/Applications/TurtleWoW/Interface/AddOns/`
-   - Linux: `~/TurtleWoW/Interface/AddOns/`
 
-2. **Copy the addon folder:**
-   - Copy the `ConsoleExperienceClassic` folder into the `AddOns` directory
-   - Make sure the folder structure is correct:
-     ```
-     Interface/
-     └── AddOns/
-         └── ConsoleExperienceClassic/
-             ├── ConsoleExperienceClassic.toc
-             ├── main.lua
-             ├── actionbars/
-             ├── chat/
-             ├── config/
-             └── ...
-     ```
+9. Enable **Windrunner-Controller** at the character select screen.
+10. Connect a controller. It can navigate the login and character-selection screens; press **X** (Square) to open the on-screen keyboard and type account text. Enter the world, center both sticks, and release every button once.
+11. Run `/controller status`.
 
-3. **Restart WoW** (if running)
+> **Starting `WoW.exe` directly will not load the DLL.** Always launch through VanillaFixes.
 
-4. **Enable the addon:**
-   - At the character select screen, click "AddOns"
-   - Make sure "ConsoleExperienceClassic" is checked
-   - Click "Okay"
+## Requirements
 
-## Verify Installation
+- Windows 32-bit World of Warcraft 1.12.1, build 5875.
+- VanillaFixes 1.5.3 or newer.
+- Xbox/XInput, DualSense, or DualSense Edge controller.
 
-1. Log into the game
-2. You should see the gamepad-style action bars at the bottom of the screen
-3. Type `/ce` to open the configuration panel
+Steam Input and DS4Windows should be disabled when testing direct DualSense input.
+
+## Verify the installation
+
+1. Connect a controller and launch the game.
+2. Use the controller to navigate login and character selection. Press **X** (Square) to open the on-screen keyboard.
+3. Center both sticks and release every button once in the world.
+4. Run `/controller status`.
+
+The status output should show the native DLL version and a connected controller.
 
 ## Updating
 
-1. Delete the old `ConsoleExperienceClassic` folder
-2. Copy the new version to the AddOns folder
-3. Your settings are saved and will persist
+1. Close the game.
+2. Download the new release ZIP and extract it.
+3. Replace `Interface/AddOns/Windrunner-Controller` with the new folder.
+4. Replace `WindrunnerController.dll` next to `WoW.exe`.
+5. Keep the `WindrunnerController.dll` line in `dlls.txt`.
 
-## Uninstallation
+Your `WTF` settings are not touched.
 
-1. Delete the `ConsoleExperienceClassic` folder from AddOns
-2. (Optional) Delete saved variables:
-   - Located in `WTF/Account/<AccountName>/SavedVariables/ConsoleExperienceClassic.lua`
+## Uninstalling
 
-## Troubleshooting Installation
+1. Close the game.
+2. Delete `Interface/AddOns/Windrunner-Controller`.
+3. Delete `WindrunnerController.dll`.
+4. Remove the `WindrunnerController.dll` line from `dlls.txt`.
 
-### Addon doesn't appear in the list
-- Make sure the folder name is exactly `ConsoleExperienceClassic`
-- Check that `ConsoleExperienceClassic.toc` is directly inside the folder (not in a subfolder)
+To remove saved settings as well, delete the relevant `Windrunner-Controller.lua` files under `WTF/Account/.../SavedVariables/`.
 
-### "Interface out of date" warning
-- Click "Load out of date AddOns" at the character select screen
-- Or check the box to always load out of date addons
+## Troubleshooting installation
 
-### Addon loads but nothing appears
-- Type `/reload` to reload the UI
-- Check for Lua errors with `/console scriptErrors 1`
+### The addon does not appear in the list
 
-See the [Troubleshooting Guide](Troubleshooting.md) for more help.
+- The folder must be exactly `Interface/AddOns/Windrunner-Controller`.
+- `Windrunner-Controller.toc` must be directly inside that folder.
+- Enable **Load out of date AddOns** at character select.
+
+### The addon loads but the controller does nothing
+
+- Launch the game through VanillaFixes, not `WoW.exe`.
+- Confirm `WindrunnerController.dll` is listed in `dlls.txt`.
+- Run `/controller status`.
+- Check `WindrunnerController.log` next to `WoW.exe`.
+
+### The client is reported as unsupported
+
+The package only supports the Windows 32-bit WoW 1.12.1 build 5875 client. It does not support newer Blizzard Classic clients.
+
+See [Troubleshooting](Troubleshooting.md) for more help.

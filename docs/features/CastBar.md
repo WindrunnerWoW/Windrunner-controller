@@ -30,7 +30,7 @@ The cast bar replaces the default WoW casting bar with a custom version that:
 | Height | Bar height in pixels | 20 |
 | Color | Cast bar color | Blue |
 
-Access these settings in the "Cast Bar" section of the config (`/ce`).
+Access these settings in **Bars > Cast Bar** in `/controller`.
 
 ## Position
 

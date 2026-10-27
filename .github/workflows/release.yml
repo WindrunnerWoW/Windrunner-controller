@@ -1,28 +1,60 @@
-name: Release Please
+name: Release
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
-  pull-requests: write
+
+# Two quick pushes must not compute the same next version.
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
-  release-please:
-    runs-on: ubuntu-latest
+  release:
+    name: Build and publish
+    runs-on: windows-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: Release Please
-        id: release
-        uses: googleapis/release-please-action@v4
-        with:
-          config-file: release-please-config.json
-          manifest-file: .release-please-manifest.json
-          token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Compute next version
+        id: version
+        shell: pwsh
+        run: |
+          $latest = git tag --list 'v*' --sort=-v:refname | Where-Object { $_ -match '^v\d+\.\d+\.\d+$' } | Select-Object -First 1
+          if (-not $latest) { $latest = 'v0.0.0' }
+          $parts = $latest.TrimStart('v').Split('.') | ForEach-Object { [int]$_ }
+          $range = if ($latest -eq 'v0.0.0') { 'HEAD' } else { "$latest..HEAD" }
+          $log = (git log $range --format='%s%n%b') -join "`n"
+          if (-not $log.Trim()) { throw "No commits since $latest." }
+          # Conventional-commit hints pick the bump; anything else is a patch.
+          if ($log -match '(?m)^BREAKING CHANGE|^\w+(\(.+\))?!:') { $parts = @(($parts[0] + 1), 0, 0) }
+          elseif ($log -match '(?m)^feat(\(.+\))?:') { $parts = @($parts[0], ($parts[1] + 1), 0) }
+          else { $parts = @($parts[0], $parts[1], ($parts[2] + 1)) }
+          $version = $parts -join '.'
+          Write-Output "Previous: $latest, next: v$version"
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Build native DLL
+        shell: pwsh
+        run: ./native/build.ps1 -OutputDirectory artifacts/native
+
+      - name: Package release
+        shell: pwsh
+        run: ./scripts/package-release.ps1 -DllPath artifacts/native/WindrunnerController.dll -Version ${{ steps.version.outputs.version }}
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          target_commitish: ${{ github.sha }}
+          generate_release_notes: true
+          files: artifacts/WindrunnerController-v*.zip
+          fail_on_unmatched_files: true

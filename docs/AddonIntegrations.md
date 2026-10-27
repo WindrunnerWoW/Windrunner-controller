@@ -1,22 +1,22 @@
 # Addon Integrations
 
-ConsoleExperienceClassic integrates with several popular addons to provide a seamless experience. This document describes the supported integrations and any required configuration.
+Windrunner-Controller integrates with several popular addons to provide a seamless experience. This document describes the supported integrations and any required configuration.
 
 ## pfUI Integration
 
-[pfUI](https://github.com/shagu/pfUI) is a full UI replacement for Vanilla WoW and TBC. ConsoleExperienceClassic provides automatic integration with pfUI.
+[pfUI](https://github.com/shagu/pfUI) is a full UI replacement for Vanilla WoW and TBC. Windrunner-Controller provides automatic integration with pfUI.
 
 ### Automatic Features
 
-When pfUI is detected, ConsoleExperienceClassic will:
+When pfUI is detected, Windrunner-Controller will:
 
-- **Automatically disable the Chat module** - pfUI has its own chat system, so ConsoleExperience's chat module is disabled to prevent conflicts
-- **Apply pfUI styling** - The ConsoleExperience configuration frame and main menu button will automatically use pfUI's styling system for a consistent look
+- **Automatically disable the Chat module** - pfUI has its own chat system, so Windrunner-Controller's chat module is disabled to prevent conflicts
+- **Apply pfUI styling** - The Windrunner-Controller configuration frame and main menu button will automatically use pfUI's styling system for a consistent look
 - **Support pfUI bag frames** - Cursor navigation works seamlessly with pfUI's custom bag frames (`pfBag` and `pfBank`)
 
 ### Required Configuration
 
-**Important:** You must manually disable the Action Bar module in pfUI to avoid conflicts with ConsoleExperience's action bars.
+**Important:** You must manually disable the Action Bar module in pfUI to avoid conflicts with Windrunner-Controller's action bars.
 
 1. Open pfUI configuration with `/pfui`
 2. Navigate to **Modules** → **Action Bars**
@@ -37,7 +37,7 @@ When pfUI is detected, ConsoleExperienceClassic will:
 
 ### Automatic Features
 
-ConsoleExperienceClassic automatically detects and integrates with Bagshui:
+Windrunner-Controller automatically detects and integrates with Bagshui:
 
 - **Cursor Navigation Support** - Full cursor navigation support for Bagshui's bag and bank frames
 - **Item Actions** - All item actions (pickup, use, delete, bind) work correctly with Bagshui's item buttons
@@ -45,7 +45,7 @@ ConsoleExperienceClassic automatically detects and integrates with Bagshui:
 
 ### Frame Names
 
-ConsoleExperienceClassic hooks into the following Bagshui frames:
+Windrunner-Controller hooks into the following Bagshui frames:
 - `BagshuiBagsFrame` - Main inventory frame
 - `BagshuiBankFrame` - Bank frame
 - Item buttons: `BagshuiBagsItem{num}` and `BagshuiBankItem{num}`
@@ -62,7 +62,7 @@ Bagshui integration works automatically - no additional configuration is needed.
 
 ### Automatic Features
 
-ConsoleExperienceClassic automatically detects and integrates with Bagnon:
+Windrunner-Controller automatically detects and integrates with Bagnon:
 
 - **Cursor Navigation Support** - Full cursor navigation support for Bagnon's inventory and bank frames
 - **Item Actions** - All item actions (pickup, use, delete, bind) work correctly with Bagnon's item buttons
@@ -70,7 +70,7 @@ ConsoleExperienceClassic automatically detects and integrates with Bagnon:
 
 ### Frame Names
 
-ConsoleExperienceClassic hooks into the following Bagnon frames:
+Windrunner-Controller hooks into the following Bagnon frames:
 - `Bagnon` - Main inventory frame
 - `Banknon` - Bank frame
 - Item buttons: `BagnonItem{num}` and `BanknonItem{num}`
@@ -90,7 +90,7 @@ If the cursor doesn't appear when navigating bag frames from pfUI, Bagshui, or B
 1. Make sure both addons are enabled
 2. Try reloading your UI with `/rl`
 3. Open and close the bag frame once to trigger the hook
-4. Check the ConsoleExperience debug messages (if enabled) for hook status
+4. Check the Windrunner debug messages (if enabled) for hook status
 
 ### Conflicts with Other Addons
 

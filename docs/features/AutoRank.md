@@ -31,7 +31,7 @@ The addon:
 |---------|-------------|---------|
 | Auto-update spells | Enable automatic rank updates | On |
 
-Find this setting in the "Action Bars" section of config (`/ce`).
+Find this setting on the **Bars** page of `/controller`.
 
 ## Slash Commands
 

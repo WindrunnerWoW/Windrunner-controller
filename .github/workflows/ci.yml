@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    name: Build native DLL
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and test native DLL
+        shell: pwsh
+        run: ./native/build.ps1 -OutputDirectory artifacts/native
+
+      - name: Upload DLL
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-dll
+          path: artifacts/native/WindrunnerController.dll
+          if-no-files-found: error
+
+  package:
+    name: Package release
+    needs: native
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download native DLL
+        uses: actions/download-artifact@v4
+        with:
+          name: native-dll
+          path: artifacts/native
+
+      - name: Build release ZIP
+        shell: pwsh
+        run: ./scripts/package-release.ps1 -DllPath artifacts/native/WindrunnerController.dll
+
+      - name: Verify package layout
+        shell: pwsh
+        run: |
+          $zip = Get-ChildItem artifacts/WindrunnerController-v*.zip | Select-Object -First 1
+          if (-not $zip) { throw 'Combined release ZIP was not created.' }
+          Add-Type -AssemblyName System.IO.Compression
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $archive = [IO.Compression.ZipFile]::OpenRead($zip.FullName)
+          $names = @($archive.Entries.FullName | ForEach-Object { $_.Replace('\', '/') })
+          $archive.Dispose()
+          if ($names -notcontains 'WindrunnerController.dll') { throw 'DLL is missing from the ZIP root.' }
+          if ($names -notcontains 'Interface/AddOns/Windrunner-Controller/Windrunner-Controller.toc') { throw 'Addon TOC is missing from the expected path.' }
+          if ($names -notcontains 'Interface/AddOns/Windrunner-Controller/WindrunnerController.lua') { throw 'Controller Lua is missing from the addon payload.' }
+          if ($names -notcontains 'Interface/AddOns/Windrunner-Controller/WindrunnerControllerIntegration.lua') { throw 'Controller integration Lua is missing from the addon payload.' }
+          if ($names -match '^(addon|native|tests|scripts|docs)/') { throw 'Development files leaked into the release ZIP.' }
+          if ($names -contains 'dlls.txt') { throw 'The release must not overwrite dlls.txt.' }
+          if ($names -notcontains 'INSTALL.txt') { throw 'INSTALL.txt is missing from the ZIP root.' }
+          if ($names -match '(^|/)(Install\.(cmd|ps1)|Uninstall\.cmd|API-FINGERPRINTS\.json)$') { throw 'Installer-only files leaked into the release ZIP.' }
+          if (@($names | Where-Object { $_ -match '\.(cmd|ps1|bat)$' }).Count -gt 0) { throw 'Script files leaked into the release ZIP.' }
+          Write-Output "Verified $($zip.Name) with $($names.Count) entries."
+
+      - name: Upload release ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-package
+          path: artifacts/WindrunnerController-v*.zip
+          if-no-files-found: error

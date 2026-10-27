@@ -1,57 +1,38 @@
-# Resources directory
-resources/
+# Build and release output
+/artifacts/
+/dist/
+/package/
+/research/
+/downloads/
 
-# IDE files
-# Visual Studio Code
+# Native build output
+/native/build/
+*.dll
+*.lib
+*.exp
+*.obj
+*.pdb
+
+# Test output
+/tests/build/
+/tests/fixture-*/
+
+# Archives
+*.zip
+
+# Editor and OS files
+.vs/
 .vscode/
-*.code-workspace
-
-# IntelliJ IDEA / PyCharm / WebStorm
 .idea/
-*.iml
-*.iws
-*.ipr
-
-# Eclipse
-.project
-.classpath
-.settings/
-
-# NetBeans
-nbproject/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-
-# Sublime Text
-*.sublime-project
-*.sublime-workspace
-
-# Vim
+*.code-workspace
 *.swp
 *.swo
 *~
-
-# Emacs
-*~
-\#*\#
-.\#*
-
-# macOS
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# Windows
 Thumbs.db
-ehthumbs.db
 Desktop.ini
-$RECYCLE.BIN/
 
-# Temporary files
+# Logs and temporary files
+*.log
 *.tmp
 *.bak
-*.log
-

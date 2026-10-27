@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="..\radial\radial.lua"/>
+  <Include file="..\radial\rings.lua"/>
+  <Include file="..\config\actionpicker.lua"/>
+</Ui>

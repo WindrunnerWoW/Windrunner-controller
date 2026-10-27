@@ -1,0 +1,41 @@
+## Interface: 11200
+## Title: Windrunner-Controller
+## Title-esES: Windrunner-Controller
+## Title-frFR: Windrunner-Controller
+## Title-koKR: Windrunner-Controller
+## Title-zhCN: Windrunner-Controller
+## Title-zhTW: Windrunner-Controller
+## Author: Windrunner Project
+## Version: 0.19.0
+## Notes: Controller interface and native input integration for WoW Vanilla
+## Notes-deDE: Controller-Oberfläche und native Eingabeintegration für WoW Vanilla
+## Notes-esES: Interfaz para mando e integración de entrada nativa para WoW Vanilla
+## Notes-frFR: Interface de manette et intégration des commandes natives pour WoW Vanilla
+## Notes-koKR: WoW 클래식용 컨트롤러 인터페이스 및 네이티브 입력 통합
+## Notes-zhCN: 为《魔兽世界》经典旧世提供手柄界面与原生输入集成
+## Notes-zhTW: 為《魔獸世界》經典舊世提供控制器介面與原生輸入整合
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariablesPerCharacter: WindrunnerExperienceDB, ConsoleExperienceDB
+## SavedVariables: WindrunnerControllerDB, WindrunnerSharedProfiles
+## OptionalDeps: pfUI
+
+main.lua
+controller-lifecycle.lua
+ui\theme.lua
+config\controls.lua
+WindrunnerControllerIntegration.lua
+WindrunnerController.lua
+init\locale.xml
+keybindings.lua
+init\actionbars.xml
+init\cursor.xml
+init\radial.xml
+init\config.xml
+init\chat.xml
+ui\layout.lua
+init\keyboard.xml
+keyboard\suggestions.lua
+init\xpbar.xml
+init\castbar.xml
+Bindings.xml

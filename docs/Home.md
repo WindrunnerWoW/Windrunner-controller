@@ -1,6 +1,8 @@
-# ConsoleExperienceClassic
+# Windrunner Controller
 
-A controller-friendly addon for World of Warcraft 1.12 (Vanilla) that provides a console-style gaming experience with gamepad support, custom UI elements, and quality-of-life features.
+A controller-first interface for World of Warcraft 1.12.1 that pairs a console-style addon with native XInput and DualSense support.
+
+The interface activates automatically when the native DLL detects a controller. Disconnecting restores the normal UI; reconnecting requires no reload.
 
 ## Features
 
@@ -17,10 +19,11 @@ A controller-friendly addon for World of Warcraft 1.12 (Vanilla) that provides a
 
 ## Quick Start
 
-1. [Install the addon](Installation.md)
-2. Log into the game
-3. Use `/ce` or `/consoleexperience` to open configuration
-4. Customize settings to your preference
+1. [Install the addon and DLL](Installation.md), including the `dlls.txt` entry and VanillaFixes.
+2. Connect a controller and launch the game through VanillaFixes: run `VanillaFixes.exe WoW.exe`.
+3. The controller navigates login and character selection; press **X** (Square) to open the on-screen keyboard for account text. Enable **Windrunner-Controller** at character select.
+4. Open `/controller`; choose Xbox or PlayStation under **Interface**.
+5. Center both sticks and release every button after entering the world. Use the **Controller** page to check connection status and tune the sticks.
 
 ## Documentation
 
@@ -41,19 +44,18 @@ A controller-friendly addon for World of Warcraft 1.12 (Vanilla) that provides a
 ## Screenshots
 
 ![Action Bars](images/bars.png)
-![Radial Menu](images/radial.png)
-![Virtual Keyboard](images/keyboard.png)
 
 ## Requirements
 
 - World of Warcraft 1.12.1 (Vanilla) or TurtleWoW
-- Optional: Xbox/PlayStation controller
+- The combined Windrunner Controller release, launched through VanillaFixes
+- Xbox/XInput, DualSense, or DualSense Edge controller
 
 ## Support
 
-- Report issues on [GitHub Issues](https://github.com/yourusername/ConsoleExperienceClassic/issues)
+- Report issues on [GitHub Issues](https://github.com/WindrunnerWoW/WindrunnerController/issues)
 - Check the [Troubleshooting Guide](Troubleshooting.md) for common problems
 
 ## License
 
-This addon is open source. Feel free to modify and distribute.
+Licensed under the GNU Affero General Public License v3.0. See the repository `LICENSE` file.

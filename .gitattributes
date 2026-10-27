@@ -1,23 +1,12 @@
-# Exclude development files from Git archives (used by GitHub releases)
-# These files will not be included when GitHub creates release zip files
+# Keep World of Warcraft files byte-for-byte. The TOC and Lua files use
+# client-friendly line endings that must not be normalized by Git.
+*.lua -text
+*.toc -text
+*.xml -text
 
-# Scripts folder
-scripts/ export-ignore
-
-# Resources folder
-resources/ export-ignore
-
-# GitHub Actions
-.github/ export-ignore
-
-# Documentation
-docs/ export-ignore
-
-# Development files
-.gitignore export-ignore
-release-please-config.json export-ignore
-*.md export-ignore
-version.txt export-ignore
-
-# PowerShell scripts in root (if any)
-*.ps1 export-ignore
+# Binary assets
+*.tga binary
+*.blp binary
+*.png binary
+*.zip binary
+*.dll binary

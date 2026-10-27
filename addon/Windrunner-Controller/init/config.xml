@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="..\config\profiles.lua"/>
+  <Include file="..\config\proxied.lua"/>
+  <Include file="..\config\config.lua"/>
+  <Include file="..\config\bindings.lua"/>
+  <Include file="..\config\control-view.lua"/>
+  <Include file="..\config\appearance.lua"/>
+  <Include file="..\config\setup.lua"/>
+  <Include file="..\config\sharing.lua"/>
+  <Include file="..\config\features.lua"/>
+  <Include file="..\config\rows.lua"/>
+  <Include file="..\config\navigation.lua"/>
+</Ui>
